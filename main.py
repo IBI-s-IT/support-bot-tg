@@ -1,5 +1,5 @@
 from telebot import TeleBot
-from telebot.types import Message
+from telebot.types import Message, CallbackQuery
 from config import Config
 from excatcher import error_handler
 from strings import BotStrings
@@ -22,6 +22,18 @@ def start(message: Message):
 @bot.message_handler(commands=['test'])
 def test(message: Message):
     c.test(message)
+
+
+@bot.message_handler(commands=['test_markup'])
+def test_markup(message: Message):
+    c.test_markup(message)
+
+
+# example of callback query handling
+@bot.callback_query_handler(func=lambda call: True)
+def callback_inline(call: CallbackQuery):
+    if call.data == "test":
+        c.test(call.message, callback=call)
 
 
 @error_handler
