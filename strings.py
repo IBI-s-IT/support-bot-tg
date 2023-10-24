@@ -5,7 +5,7 @@ class BotStrings:
     hello: str
     test: str
 
-    __strings: dict[ParsingMode, dict[str, dict[str, str]]] = {
+    __strings: dict[ParsingMode, dict[AvailableLanguages, dict[str, str]]] = {
         'HTML': {
             'en': {
                 'hello': '<b>Hello</b>, world!',
@@ -54,8 +54,16 @@ class BotStrings:
         self.load_strings()
 
     def load_strings(self):
-        self.hello = self.__strings[self.parse_mode][self.lang]['hello']
-        self.test = self.__strings[self.parse_mode][self.lang]['test']
+        for i in self.__strings[self.parse_mode][self.lang]:
+            setattr(self, i, self.__strings[self.parse_mode][self.lang][i])
 
     def __repr__(self):
         return f'<BotStrings lang={self.lang} parse_mode={self.parse_mode}>'
+
+
+if __name__ == '__main__':
+    strings = BotStrings()
+    print(strings.parse_mode)
+    print(strings.hello)
+    print(strings.test)
+    print(strings)
