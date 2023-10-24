@@ -36,9 +36,9 @@ def callback_inline(call: CallbackQuery):
         c.test(call.message, callback=call)
 
 
-@error_handler
+@error_handler(exits=False)
 def main():
-    bot.polling()
+    bot.infinity_polling()
 
 
 if __name__ == '__main__':

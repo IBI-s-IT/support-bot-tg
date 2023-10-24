@@ -5,7 +5,7 @@ from bot_types import ConfigFormat
 
 
 class Config (object):
-    @error_handler
+    @error_handler(exits=True)
     def __init__(self, path, config_format: ConfigFormat = 'env'):
 
         self.PARSE_MODE = None
@@ -36,7 +36,7 @@ class Config (object):
         return f'<Config API_TOKEN={self.API_TOKEN}>'
 
 
-@error_handler
+@error_handler(exits=True)
 def main():
     c = Config('.env', config_format='env')
     print(c.API_TOKEN)
