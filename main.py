@@ -2,7 +2,7 @@ from telebot import TeleBot
 from telebot.types import Message, CallbackQuery
 from config import Config
 from excatcher import error_handler
-from strings import BotStrings
+from static import BotStrings
 
 import commands
 
@@ -19,21 +19,16 @@ def start(message: Message):
     c.start(message)
 
 
-@bot.message_handler(commands=['test'])
+@bot.message_handler(commands=['appeal'])
 def test(message: Message):
-    c.test(message)
-
-
-@bot.message_handler(commands=['test_markup'])
-def test_markup(message: Message):
-    c.test_markup(message)
+    c.appeal(message)
 
 
 # example of callback query handling
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call: CallbackQuery):
-    if call.data == "test":
-        c.test(call.message, callback=call)
+    if call.data == "appeal":
+        c.appeal(call)
 
 
 @error_handler(exits=False)
