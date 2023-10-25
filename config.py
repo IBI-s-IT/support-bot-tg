@@ -8,7 +8,7 @@ class Config (object):
     @error_handler(exits=True)
     def __init__(self, path, config_format: ConfigFormat = 'env'):
 
-        self.PARSE_MODE = None
+        # self.PARSE_MODE = None
         config: dict[str, str | None] = {}
 
         if config_format == 'env':
@@ -30,7 +30,6 @@ class Config (object):
                 raise KeyError(f'Required variable "{key}" not set in {path}')
 
         self.API_TOKEN = config['API_TOKEN']
-        self.PARSE_MODE = config['PARSE_MODE'] if 'PARSE_MODE' in config and config['PARSE_MODE'] != '' else None
 
     def __repr__(self):
         return f'<Config API_TOKEN={self.API_TOKEN}>'
@@ -40,7 +39,6 @@ class Config (object):
 def main():
     c = Config('.env', config_format='env')
     print(c.API_TOKEN)
-    print(c.PARSE_MODE)
 
 
 if __name__ == '__main__':

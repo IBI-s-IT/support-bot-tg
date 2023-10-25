@@ -3,15 +3,15 @@ from telebot.types import Message, CallbackQuery
 from config import Config
 from excatcher import error_handler
 from static import BotStrings, BackPages
-from static import MarkupPages as pages
+from static import MarkupPages
 
 import commands
 
 
 config = Config('.env', config_format='env')
-bot = TeleBot(config.API_TOKEN, parse_mode=config.PARSE_MODE)
+bot = TeleBot(config.API_TOKEN, parse_mode='HTML')
 
-strings = BotStrings(parse_mode=bot.parse_mode)
+strings = BotStrings()
 c = commands.BotCommands(bot, strings)
 
 page: str  # needs to be updated for storing more information
@@ -52,7 +52,7 @@ def callback_inline(call: CallbackQuery):
         page = BackPages[page]
         c.reply(call, page)
     else:
-        page = list(pages.keys())[list(pages.values()).index(call.data)]
+        page = list(MarkupPages.keys())[list(MarkupPages.values()).index(call.data)]
         c.reply(call, page)
 
 
