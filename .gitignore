@@ -178,6 +178,8 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 
 ### Python template
+__old_*.py
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
