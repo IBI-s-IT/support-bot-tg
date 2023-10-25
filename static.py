@@ -61,6 +61,20 @@ class BotStrings:
         return f'<BotStrings lang={self.lang} parse_mode={self.parse_mode}>'
 
 
+ClassList = {
+    'МС': [
+        '10', '12',
+        '22', '24',
+        '31', '32', '33', '34',
+        '42', '43', '44', '45',
+        '51', '52', '53', '54', '58'
+    ],
+    'Н': [
+        '425', '430'
+    ]
+}
+
+
 if __name__ == '__main__':
     strings = BotStrings()
     print(strings.parse_mode)
