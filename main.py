@@ -49,11 +49,18 @@ def appeal(message: Message):
 def callback_inline(call: CallbackQuery):
     global page
     if call.data == 'go_back':
-        page = BackPages[page]
-        c.reply(call, page)
+        try:
+            page = BackPages[page]
+        except KeyError:
+            page = '0'
+        except NameError:
+            page = '0'
     else:
-        page = list(MarkupPages.keys())[list(MarkupPages.values()).index(call.data)]
-        c.reply(call, page)
+        try:
+            page = list(MarkupPages.keys())[list(MarkupPages.values()).index(call.data)]
+        except KeyError:
+            page = '0'
+    c.reply(call, page)
 
 
 @error_handler(exits=False)

@@ -19,13 +19,15 @@ class BotCommands:
                 text,
                 data.message.chat.id,
                 data.message.message_id,
-                reply_markup=markup
+                reply_markup=markup,
+                disable_web_page_preview=True
             )
         elif isinstance(data, Message):
             self.bot.send_message(
                 data.chat.id,
                 text,
-                reply_markup=markup
+                reply_markup=markup,
+                disable_web_page_preview=True
             )
         else:
             print('Этой надписи не должно быть, смотри типизацию')
