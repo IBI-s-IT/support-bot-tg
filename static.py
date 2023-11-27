@@ -1,4 +1,33 @@
+from api import ApiController
 from bot_types import AvailableLanguages
+
+
+class Departments:
+    deps: dict | None
+
+    def __init__(self, api: ApiController):
+        deps = api.departments()
+        self.deps = deps['response']['data'] if deps['status'] == 200 else None
+
+    def __repr__(self):
+        d_list = ''
+        if self.deps is None:
+            return '\n<i>ошибка при загрузке информации</i>\n'
+        for line in self.deps:
+            if 'Председатель' in line['name']:
+                d_list += f'<b>{line["name"]}:</b>\n'
+                d_list += f'<b><i>{line["leader"]}</i></b>\n\n'
+                d_list += f'<i>{line["description"]}</i>\n\n'
+            else:
+                d_list += f'<b>{line["name"]}: </b>\n'
+                d_list += f'<i>{line["description"]}</i>\n'
+                d_list += '\n'
+                d_list += f'Глава: {line["leader"]}\n'
+            d_list += f'Заместитель: {line["deputy"]}\n' if line['deputy'] != '-' else ''
+            d_list += f'Секретарь: {line["secretary"]}\n' if line['secretary'] != '-' else ''
+            d_list += '\n'
+            d_list += f'Контактное лицо: @{line["contact_tg"]}\n\n'
+        return d_list
 
 
 class BotStrings:
@@ -12,6 +41,12 @@ class BotStrings:
     resources_ibi_s_it: str
     inform_class: str
     subscribe: str
+    ss_info: str
+    get_question_name: str
+    get_question_group: str
+    get_question_text: str
+    question_submit_success: str
+    question_submit_bad: str
 
     __strings: dict[AvailableLanguages, dict[str, str]] = {
         'en': {
@@ -42,30 +77,7 @@ class BotStrings:
                        '\n'
                        'Ключевые лица студенческого совета: \n'
                        '—————————————————————\n'
-                       'Председатель студенческого совета:\n'
-                       '<a href="https://t.me/deputat7777">Карадаян Ервант Андреевич</a>\n'
-                       '\n'
-                       'Заместитель председателя студенческого совета:\n'
-                       '<a href="https://t.me/Dimasta1010">Барабанов Дмитрий Сергеевич</a>\n'
-                       '\n'
-                       'Лицо взаимодействия со всеми структурами студенческого совета:\n'
-                       'А такое есть?\n'
-                       '\n'
-                       'Глава культурно-массового отдела:\n'
-                       '<a href="https://t.me/Artur_Krsk">Якимёнок Артур Денисович</a>\n'
-                       '\n'
-                       'Глава СНО:\n'
-                       '<a href="https://t.me/levas553">Борисов Лев Александрович</a>\n'
-                       '\n'
-                       'Глава отдела IT:\n'
-                       '<a href="https://t.me/gbowsky">Горбовской Григорий Владимирович</a>\n'
-                       '\n'
-                       'Глава СМИ:\n'
-                       '<a href="https://t.me/keeyoo">Барахоев Ислам Хасанович</a>\n'
-                       '\n'
-                       'Глава отдела взаимодействия со спортивной деятельностью:\n'
-                       '<a href="https://t.me/rastishka_519">Распопов Ростислав Андреевич</a>\n'
-                       '\n'
+                       '<i>placeholder</i>'
                        'Но спешим заметить, что основное взаимодействие должно происходить через бота, а писать им '
                        'можно только в случае срочности и крайней необходимости.',
             'appeal': '<b>Вопрос студсовету</b>\n'
@@ -88,20 +100,30 @@ class BotStrings:
                                   'sth',
             'resources_ibi_s_it': '<b>Ссылки на ресурсы от студсовета:</b>\n'
                                   '\n'
-                                  'link1'
-                                  'link2',
+                                  '<a href="https://apps.apple.com/ru/app/ibi-lounge/id6459472308">IBI Lounge IOS</a>\n'
+                                  '<a href="https://t.me/ibi_rasp_bot">Бот Расписание</a>\n'
+                                  '<a href="https://t.me/ibi_decanat_bot">Бот Абитуриенту</a>\n'
+                                  '<a href="https://t.me/ibi_sc_bot">Бот Студсовета</a>',
             'inform_class': 'проход к аудиториям..',
-            'subscribe': 'подписки... да, я заебался катать тексты'
+            'subscribe': 'подписки... да, я заебался катать тексты',
+            'get_question_name': 'Как вас зовут?',
+            'get_question_group': 'Из какой вы группы?',
+            'get_question_text': 'Напишите ваш вопрос:',
+            'question_submit_success': 'Ваше обращение принято и в ближайшее время будет обработано.',
+            'question_submit_bad': 'Произошла неизвестная ошибка при обработке обращения, попробуйте позже.'
         },
     }
 
-    def __init__(self, lang: AvailableLanguages = 'ru'):
+    def __init__(self, api: ApiController, lang: AvailableLanguages = 'ru'):
+        self.api = api
         self.lang = lang
         self.load_strings()
 
     def load_strings(self):
         for i in self.__strings[self.lang]:
             setattr(self, i, self.__strings[self.lang][i])
+        deps = Departments(self.api)
+        self.ss_info = self.ss_info.replace('<i>placeholder</i>', str(deps))
 
     def __repr__(self):
         return f'<BotStrings lang={self.lang}>'

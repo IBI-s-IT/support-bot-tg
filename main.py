@@ -1,5 +1,7 @@
-from telebot import TeleBot
+from telebot import TeleBot, apihelper
 from telebot.types import Message, CallbackQuery
+
+from api import ApiController
 from config import Config
 from excatcher import error_handler
 from static import BotStrings, BackPages
@@ -11,10 +13,15 @@ import commands
 config = Config('.env', config_format='env')
 bot = TeleBot(config.API_TOKEN, parse_mode='HTML')
 
-strings = BotStrings()
-c = commands.BotCommands(bot, strings)
+if config.TEST_SERVER == '1':
+    apihelper.API_URL = 'https://api.telegram.org/bot{0}/test/{1}'
 
-page: str  # needs to be updated for storing more information
+api = ApiController(config.SC_API_URL, config.SC_API_TOKEN)
+
+strings = BotStrings(api)
+c = commands.BotCommands(bot, strings, api)
+
+page: str
 
 
 @bot.message_handler(commands=['start'])
@@ -25,24 +32,28 @@ def start(message: Message):
 
 
 @bot.message_handler(commands=['appeal'])
-def appeal(message: Message):
-    global page
-    page = '1'
-    c.reply(message, page)
+def ask(message: Message):
+
+    c.get_question(message)
 
 
-@bot.message_handler(commands=['inform'])
-def appeal(message: Message):
-    global page
-    page = '2'
-    c.reply(message, page)
+# @bot.message_handler(commands=['inform'])
+# def inform(message: Message):
+#     global page
+#     page = '2'
+#     c.reply(message, page)
+#
+#
+# @bot.message_handler(commands=['subscribe'])
+# def subscribe(message: Message):
+#     global page
+#     page = '3'
+#     c.reply(message, page)
 
 
-@bot.message_handler(commands=['subscribe'])
-def appeal(message: Message):
-    global page
-    page = '3'
-    c.reply(message, page)
+@bot.message_handler(commands=['admin'])
+def panel(message: Message):
+    pass
 
 
 @bot.callback_query_handler(func=lambda call: True)

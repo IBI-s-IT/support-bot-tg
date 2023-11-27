@@ -10,25 +10,27 @@ class MessageMarkups:
     main_ss = InlineKeyboardButton('Структура студсовета', callback_data='ss_info')
     main_appeal = InlineKeyboardButton('Обращение', callback_data='appeal')
     main_inform = InlineKeyboardButton('Информация', callback_data='inform')
-    main_subscribe = InlineKeyboardButton('Рассылки', callback_data='subscribe')
-    main_kb = [[main_ss], [main_appeal], [main_inform], [main_subscribe]]
+    # main_subscribe = InlineKeyboardButton('Рассылки', callback_data='subscribe')
+    # main_kb = [[main_ss], [main_appeal], [main_inform], [main_subscribe]]
+    main_kb = [[main_ss], [main_appeal], [main_inform]]
     main.keyboard = main_kb
 
     ss_info: InlineKeyboardMarkup = InlineKeyboardMarkup()
     ss_info.keyboard = [[button_back]]
 
     appeal: InlineKeyboardMarkup = InlineKeyboardMarkup()
-    appeal_anon = InlineKeyboardButton('Анонимно', callback_data='appeal_anon')  # web app
-    appeal_nanon = InlineKeyboardButton('Не анонимно', callback_data='appeal_nanon')  # web app
+    appeal_anon = InlineKeyboardButton('Анонимно', callback_data='appeal_anon')
+    appeal_nanon = InlineKeyboardButton('Не анонимно', callback_data='appeal_nanon')
     appeal_kb = [[appeal_anon], [appeal_nanon], [button_back]]
     appeal.keyboard = appeal_kb
 
     inform: InlineKeyboardMarkup = InlineKeyboardMarkup()
     inform_resources_btn = InlineKeyboardButton('Ресурсы', callback_data='inform_resources')
-    inform_class_btn = InlineKeyboardButton('Проход к аудитории', callback_data='inform_class')
-    inform_pin = InlineKeyboardButton('Поиск ПИН', callback_data='inform_pin')  # web app in future
+    # inform_class_btn = InlineKeyboardButton('Проход к аудитории', callback_data='inform_class')
+    # inform_pin = InlineKeyboardButton('Поиск ПИН', callback_data='inform_pin')  # web app in future
     # inform_other = InlineKeyboardButton('Прочая информация', callback_data='inform_other')
-    inform_kb = [[inform_resources_btn, inform_pin], [inform_class_btn], [button_back]]
+    # inform_kb = [[inform_resources_btn, inform_pin], [inform_class_btn], [button_back]]
+    inform_kb = [[inform_resources_btn], [button_back]]
     inform.keyboard = inform_kb
 
     inform_resources = InlineKeyboardMarkup()
@@ -63,9 +65,9 @@ class MessageMarkups:
     class_kb.append([button_back])
     inform_class.keyboard = class_kb
 
-    subscribe = InlineKeyboardMarkup()
-    subscribe_media = InlineKeyboardButton('Подслушано студсовет', url='https://cullfy.ru')
-    subscribe_decan = InlineKeyboardButton('Подслушано МБИ', url='https://cullfy.ru')
-    # other...
-    subscribe_kb = [[subscribe_media], [subscribe_decan], [button_back]]
-    subscribe.keyboard = subscribe_kb
+    # subscribe = InlineKeyboardMarkup()
+    # subscribe_media = InlineKeyboardButton('Подслушано студсовет', url='https://cullfy.ru')
+    # subscribe_decan = InlineKeyboardButton('Подслушано МБИ', url='https://cullfy.ru')
+    # # other...
+    # subscribe_kb = [[subscribe_media], [subscribe_decan], [button_back]]
+    # subscribe.keyboard = subscribe_kb

@@ -5,6 +5,11 @@ from bot_types import ConfigFormat
 
 
 class Config (object):
+    API_TOKEN: str
+    SC_API_URL: str
+    SC_API_TOKEN: str
+    TEST_SERVER: str
+
     @error_handler(exits=True)
     def __init__(self, path, config_format: ConfigFormat = 'env'):
 
@@ -24,12 +29,15 @@ class Config (object):
             raise NotImplementedError('INI config format is not implemented yet')
 
         # check if all required variables are set
-        required: list[str] = ['API_TOKEN']
+        required: list[str] = ['API_TOKEN', 'SC_API_URL']
         for key in required:
             if key not in config:
                 raise KeyError(f'Required variable "{key}" not set in {path}')
 
         self.API_TOKEN = config['API_TOKEN']
+        self.SC_API_URL = config['SC_API_URL']
+        self.SC_API_TOKEN = config['SC_API_TOKEN']
+        self.TEST_SERVER = config['TEST_SERVER']
 
     def __repr__(self):
         return f'<Config API_TOKEN={self.API_TOKEN}>'
