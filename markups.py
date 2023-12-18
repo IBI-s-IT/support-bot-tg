@@ -1,10 +1,14 @@
-from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 
 from static import ClassList
 
 
 class MessageMarkups:
     button_back = InlineKeyboardButton('Назад', callback_data='go_back')
+
+    admin: InlineKeyboardMarkup = InlineKeyboardMarkup()
+    admin_wa = InlineKeyboardButton('Панелька для ответов', web_app=WebAppInfo('https://sc-ma.utme.space/'))
+    admin.keyboard = [[admin_wa]]
 
     main: InlineKeyboardMarkup = InlineKeyboardMarkup()
     main_ss = InlineKeyboardButton('Структура студсовета', callback_data='ss_info')

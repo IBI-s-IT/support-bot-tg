@@ -53,7 +53,7 @@ def ask(message: Message):
 
 @bot.message_handler(commands=['admin'])
 def panel(message: Message):
-    pass
+    c.panel(message)
 
 
 @bot.callback_query_handler(func=lambda call: True)

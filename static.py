@@ -47,6 +47,7 @@ class BotStrings:
     get_question_text: str
     question_submit_success: str
     question_submit_bad: str
+    panel: str
 
     __strings: dict[AvailableLanguages, dict[str, str]] = {
         'en': {
@@ -110,7 +111,8 @@ class BotStrings:
             'get_question_group': 'Из какой вы группы?',
             'get_question_text': 'Напишите ваш вопрос:',
             'question_submit_success': 'Ваше обращение принято и в ближайшее время будет обработано.',
-            'question_submit_bad': 'Произошла неизвестная ошибка при обработке обращения, попробуйте позже.'
+            'question_submit_bad': 'Произошла неизвестная ошибка при обработке обращения, попробуйте позже.',
+            'panel': 'Панелька хуелька.'
         },
     }
 
