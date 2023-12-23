@@ -96,10 +96,14 @@ class BotStrings:
                                 'Каналы в соц. сетях\n'
                                 'Приложения и боты для студентов\n'
                                 'Прочие ссылки..</i>',
-            'resources_channels': '<b>Ссылки на ресурсы от института:</b>\n'
+            'resources_channels': '<b>Ссылки на медиа ресурсы от института:</b>\n'
                                   '\n'
-                                  'sth',
-            'resources_ibi_s_it': '<b>Ссылки на ресурсы от студсовета:</b>\n'
+                                  '<a href="https://t.me/ibispb_ru">Официальный тг-канал МБИ</a>\n'
+                                  '<a href="https://vk.com/overheardibi">Подслушано МБИ (ВК)</a>\n'
+                                  '<a href="https://t.me/IBI_decan">Подслушано МБИ (ТГ)</a>\n'
+                                  '<a href="https://t.me/+Mij8bILct6Y2NzQ6">Подслушано студсовет</a>\n'
+                                  '<a href="https://t.me/SNOMBI">СНО МБИ</a>\n',
+            'resources_ibi_s_it': '<b>Ссылки на полезные ресурсы от студсовета:</b>\n'
                                   '\n'
                                   '<a href="https://apps.apple.com/ru/app/ibi-lounge/id6459472308">IBI Lounge IOS</a>\n'
                                   '<a href="https://t.me/ibi_rasp_bot">Бот Расписание</a>\n'
@@ -112,7 +116,7 @@ class BotStrings:
             'get_question_text': 'Напишите ваш вопрос:',
             'question_submit_success': 'Ваше обращение принято и в ближайшее время будет обработано.',
             'question_submit_bad': 'Произошла неизвестная ошибка при обработке обращения, попробуйте позже.',
-            'panel': 'Панелька хуелька.'
+            'panel': 'Панель для просмотра и ответа на обращения.'
         },
     }
 

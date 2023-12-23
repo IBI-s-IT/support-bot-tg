@@ -62,3 +62,11 @@ class BotCommands:
             self.bot.register_next_step_handler(msg, get_q_group)
 
         self.bot.register_next_step_handler(message, get_q_name)
+
+    def panel(self, message: Message):
+        self.bot.send_message(
+            message.from_user.id,
+            self.strings.panel,
+            reply_markup=MessageMarkups.admin,
+            disable_web_page_preview=True
+        )
